@@ -1,0 +1,197 @@
+{
+  "areas": [
+    {
+      "id": "ti",
+      "nome": "Tecnologia da Informação",
+      "cor": "#4285F4"
+    },
+    {
+      "id": "enfermagem",
+      "nome": "Enfermagem",
+      "cor": "#34A853"
+    },
+    {
+      "id": "estetica",
+      "nome": "Estética",
+      "cor": "#FBBC05"
+    },
+    {
+      "id": "logistica",
+      "nome": "Logística",
+      "cor": "#EA4335"
+    },
+    {
+      "id": "administracao",
+      "nome": "Administração",
+      "cor": "#9C27B0"
+    }
+  ],
+  "perguntas": [
+    {
+      "id": 1,
+      "texto": "Tenho facilidade em resolver problemas lógicos e quebra-cabeças.",
+      "pesos": {
+        "ti": 3,
+        "enfermagem": 1,
+        "estetica": 1,
+        "logistica": 2,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 2,
+      "texto": "Gosto de cuidar e ajudar outras pessoas.",
+      "pesos": {
+        "ti": 1,
+        "enfermagem": 3,
+        "estetica": 3,
+        "logistica": 1,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 3,
+      "texto": "Tenho interesse em como funcionam computadores e softwares.",
+      "pesos": {
+        "ti": 3,
+        "enfermagem": 1,
+        "estetica": 1,
+        "logistica": 1,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 4,
+      "texto": "Sou organizado(a) e gosto de planejar com antecedência.",
+      "pesos": {
+        "ti": 2,
+        "enfermagem": 2,
+        "estetica": 1,
+        "logistica": 3,
+        "administracao": 3
+      }
+    },
+    {
+      "id": 5,
+      "texto": "Tenho interesse em saúde e bem-estar.",
+      "pesos": {
+        "ti": 1,
+        "enfermagem": 3,
+        "estetica": 3,
+        "logistica": 1,
+        "administracao": 1
+      }
+    },
+    {
+      "id": 6,
+      "texto": "Gosto de trabalhar com números e estatísticas.",
+      "pesos": {
+        "ti": 3,
+        "enfermagem": 1,
+        "estetica": 1,
+        "logistica": 2,
+        "administracao": 3
+      }
+    },
+    {
+      "id": 7,
+      "texto": "Tenho interesse em beleza, moda ou arte.",
+      "pesos": {
+        "ti": 1,
+        "enfermagem": 1,
+        "estetica": 3,
+        "logistica": 1,
+        "administracao": 1
+      }
+    },
+    {
+      "id": 8,
+      "texto": "Gosto de entender como produtos são transportados e armazenados.",
+      "pesos": {
+        "ti": 1,
+        "enfermagem": 1,
+        "estetica": 1,
+        "logistica": 3,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 9,
+      "texto": "Tenho facilidade em aprender novas tecnologias.",
+      "pesos": {
+        "ti": 3,
+        "enfermagem": 2,
+        "estetica": 2,
+        "logistica": 2,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 10,
+      "texto": "Gosto de liderar equipes e projetos.",
+      "pesos": {
+        "ti": 2,
+        "enfermagem": 2,
+        "estetica": 2,
+        "logistica": 2,
+        "administracao": 3
+      }
+    },
+    {
+      "id": 11,
+      "texto": "Tenho interesse em como o corpo humano funciona.",
+      "pesos": {
+        "ti": 1,
+        "enfermagem": 3,
+        "estetica": 3,
+        "logistica": 1,
+        "administracao": 1
+      }
+    },
+    {
+      "id": 12,
+      "texto": "Gosto de criar e desenvolver soluções inovadoras.",
+      "pesos": {
+        "ti": 3,
+        "enfermagem": 2,
+        "estetica": 2,
+        "logistica": 2,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 13,
+      "texto": "Tenho interesse em gestão financeira e negócios.",
+      "pesos": {
+        "ti": 2,
+        "enfermagem": 1,
+        "estetica": 2,
+        "logistica": 2,
+        "administracao": 3
+      }
+    },
+    {
+      "id": 14,
+      "texto": "Gosto de trabalhar em ambientes que exigem atenção aos detalhes.",
+      "pesos": {
+        "ti": 3,
+        "enfermagem": 3,
+        "estetica": 3,
+        "logistica": 2,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 15,
+      "texto": "Tenho facilidade em me comunicar e ajudar pessoas.",
+      "pesos": {
+        "ti": 2,
+        "enfermagem": 3,
+        "estetica": 3,
+        "logistica": 2,
+        "administracao": 3
+      }
+    }
+  ]
+}
+
