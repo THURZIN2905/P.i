@@ -23,12 +23,6 @@
   "env": {
     "PYTHONPATH": "."
   },
-  "functions": {
-    "main.py": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
@@ -62,4 +56,3 @@
     }
   ]
 }
-
