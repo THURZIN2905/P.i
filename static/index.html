@@ -3,211 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Orientador Vocacional SENAC - Descubra sua área profissional ideal com nosso teste vocacional">
+    <meta name="description" content="Orientador Vocacional SENAC - Descubra sua área profissional ideal com nosso teste vocacional interativo">
     <meta name="keywords" content="orientação vocacional, teste vocacional, SENAC, carreira, profissão, curso técnico">
     <meta name="author" content="SENAC">
     <meta name="theme-color" content="#4285F4">
     
     <title>Orientador Vocacional SENAC</title>
     
-    <!-- Preload de fontes e recursos críticos -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/css/style.min.css">
     
-    <!-- CSS inline para carregamento crítico -->
-    <style>
-        /* Estilos críticos para o carregamento inicial */
-        :root {
-            --primary-color: #4285F4;
-            --secondary-color: #34A853;
-            --accent-color: #FBBC05;
-            --danger-color: #EA4335;
-            --extra-color: #9C27B0;
-            --background-light: #f8f9fa;
-            --text-dark: #212529;
-            --text-light: #6c757d;
-            --white: #ffffff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-            
-            /* Variáveis para modo escuro */
-            --dark-background: #121212;
-            --dark-surface: #1e1e1e;
-            --dark-text: #e0e0e0;
-            --dark-text-secondary: #a0a0a0;
-            --dark-border: #333333;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            transition: var(--transition);
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-        
-        /* Estilos para o loader */
-        .loader {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .loader-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid var(--background-light);
-            border-top: 5px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Estilos para o botão de alternar tema */
-        .theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: var(--white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            z-index: 100;
-            border: none;
-            transition: var(--transition);
-        }
-        
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-        
-        .theme-toggle:focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
-        }
-        
-        /* Estilos para o botão VLibras */
-        .vlibras-toggle {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            z-index: 100;
-            border: none;
-            transition: var(--transition);
-        }
-        
-        .vlibras-toggle:hover {
-            transform: scale(1.1);
-        }
-        
-        .vlibras-toggle:focus {
-            outline: 2px solid var(--secondary-color);
-            outline-offset: 2px;
-        }
-    </style>
-    
-    <!-- CSS minificado -->
-    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="canonical" href="https://orientador-vocacional-senac.vercel.app/">
 </head>
 <body>
-    <!-- Cabeçalho -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+    
     <header class="header">
         <div class="container">
-            <h1 class="logo">Teste vocacional inteligente</h1>
-            <button id="startTest" class="btn btn-primary">Iniciar teste</button>
+            <div class="logo" aria-label="Orientador Vocacional SENAC">Teste Vocacional SENAC</div>
+            <button id="start-test" class="btn btn-primary">Iniciar teste</button>
         </div>
     </header>
-
-    <!-- Seção principal -->
-    <main>
-        <!-- Seção de introdução -->
-        <section id="intro" class="section intro">
+    
+    <main id="main-content">
+        <section id="intro-section" class="intro">
             <div class="container">
                 <div class="intro-content">
                     <div class="intro-text">
                         <h2>Descubra <span class="highlight">sua área</span> pelas <span class="highlight">suas respostas</span></h2>
-                        <p>Neste teste você irá descobrir sua profissão/curso</p>
-                        <button id="startTestIntro" class="btn btn-accent">Vamos iniciar?</button>
+                        <p>Neste teste você irá descobrir sua profissão/curso ideal com base nas suas preferências e habilidades.</p>
+                        <button id="start-test-main" class="btn btn-accent">Vamos iniciar?</button>
                     </div>
                     <div class="intro-image">
-                        <img src="https://via.placeholder.com/400x300" alt="Ilustração do teste vocacional" width="400" height="300" loading="lazy">
+                        <img src="https://via.placeholder.com/500x400?text=Orientador+Vocacional" alt="Ilustração do Orientador Vocacional" loading="lazy">
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Seção de benefícios -->
-        <section id="benefits" class="section benefits">
+        
+        <section class="benefits">
             <div class="container">
+                <h2 class="section-title">Por que fazer nosso teste?</h2>
                 <div class="benefits-grid">
                     <div class="benefit-card">
                         <div class="benefit-icon">
-                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
+                            <i class="fas fa-chart-bar fa-3x"></i>
                         </div>
                         <h3>Maior taxa de acerto</h3>
                         <p>Venha fazer nosso teste e veja que não somos apenas um teste qualquer.</p>
                     </div>
                     <div class="benefit-card">
                         <div class="benefit-icon">
-                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="16" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                            </svg>
+                            <i class="fas fa-search fa-3x"></i>
                         </div>
                         <h3>A análise revolucionária</h3>
                         <p>Essa análise é bem mais que os olhos podem ver.</p>
@@ -215,19 +65,15 @@
                 </div>
             </div>
         </section>
-
-        <!-- Seção de como funciona -->
-        <section id="howItWorks" class="section how-it-works">
+        
+        <section class="how-it-works">
             <div class="container">
                 <h2 class="section-title">Como funciona?</h2>
                 <div class="steps">
                     <div class="step">
                         <div class="step-number">1</div>
                         <div class="step-icon">
-                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
+                            <i class="fas fa-clock fa-3x"></i>
                         </div>
                         <h3>Se prepare</h3>
                         <p>Vá para um local calmo e sem interferência.</p>
@@ -235,13 +81,7 @@
                     <div class="step">
                         <div class="step-number">2</div>
                         <div class="step-icon">
-                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                                <polyline points="10 9 9 9 8 9"></polyline>
-                            </svg>
+                            <i class="fas fa-list-check fa-3x"></i>
                         </div>
                         <h3>Iniciar teste</h3>
                         <p>Nosso sistema irá proporcionar uma experiência única para o usuário.</p>
@@ -249,10 +89,7 @@
                     <div class="step">
                         <div class="step-number">3</div>
                         <div class="step-icon">
-                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                            </svg>
+                            <i class="fas fa-check-circle fa-3x"></i>
                         </div>
                         <h3>Confira o resultado</h3>
                         <p>Confira seu resultado e analise se está de acordo com suas expectativas.</p>
@@ -260,80 +97,76 @@
                 </div>
             </div>
         </section>
-
-        <!-- Seção sobre o desenvolvimento -->
-        <section id="about" class="section about">
+        
+        <section class="about">
             <div class="container">
+                <h2 class="section-title">Desenvolvido por especialistas</h2>
                 <div class="about-content">
                     <div class="about-image">
-                        <img src="https://via.placeholder.com/500x400" alt="Equipe de especialistas" width="500" height="400" loading="lazy">
+                        <img src="https://via.placeholder.com/500x400?text=Equipe+de+Especialistas" alt="Equipe de especialistas" loading="lazy">
                     </div>
                     <div class="about-text">
-                        <h2>Desenvolvido por uma equipe de especialistas</h2>
+                        <h2>Equipe de especialistas</h2>
                         <p>Nosso teste foi desenvolvido com base em métodos psicológicos e com o apoio de diversos profissionais da área, visando proporcionar a melhor experiência possível na escolha de uma profissão ou curso que se alinhe com você. Prezamos pelo seu desenvolvimento pessoal e desejamos que essa experiência contribua significativamente para o seu crescimento.</p>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Seção do questionário (inicialmente oculta) -->
-        <section id="questionnaire" class="section questionnaire hidden">
+        
+        <section id="questionnaire-section" class="questionnaire hidden">
             <div class="container">
                 <h2 class="section-title">Questionário Vocacional</h2>
-                <form id="questionForm" class="question-form">
+                <form id="question-form" class="question-form">
                     <div class="form-group">
-                        <label for="nome" class="form-label">Seu nome:</label>
-                        <input type="text" id="nome" name="nome" class="form-input" required aria-required="true">
+                        <label for="participant-name" class="form-label">Seu nome completo:</label>
+                        <input type="text" id="participant-name" class="form-input" placeholder="Digite seu nome completo" required aria-required="true">
                     </div>
                     
                     <div id="questions-container" class="questions-container">
-                        <!-- As perguntas serão inseridas aqui via JavaScript -->
+                        <!-- Perguntas serão carregadas dinamicamente via JavaScript -->
                     </div>
                     
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Enviar respostas</button>
+                        <button type="submit" id="submit-test" class="btn btn-primary">Enviar respostas</button>
                     </div>
                 </form>
             </div>
         </section>
-
-        <!-- Seção de resultados (inicialmente oculta) -->
-        <section id="results" class="section results hidden">
+        
+        <section id="results-section" class="results hidden">
             <div class="container">
                 <h2 class="section-title">Seu Resultado</h2>
                 <div class="results-content">
                     <div class="results-header">
-                        <h3 id="resultName">Nome do participante</h3>
-                        <p class="results-date" id="resultDate">Data do teste</p>
+                        <h3>Resultado para <span id="results-name">Nome do Participante</span></h3>
+                        <div class="results-date" id="results-date">Data do teste</div>
                     </div>
                     
                     <div class="results-chart">
-                        <img id="resultChart" src="" alt="Gráfico de resultados" class="result-chart-img">
+                        <img id="results-chart" src="" alt="Gráfico de resultados" class="result-chart-img">
                     </div>
                     
                     <div class="results-scores">
-                        <h3>Pontuações por área:</h3>
-                        <ul id="scoresList" class="scores-list">
-                            <!-- As pontuações serão inseridas aqui via JavaScript -->
+                        <h3>Pontuações por área</h3>
+                        <ul id="scores-list" class="scores-list">
+                            <!-- Pontuações serão carregadas dinamicamente via JavaScript -->
                         </ul>
                     </div>
                     
                     <div class="results-actions">
-                        <button id="newTest" class="btn btn-secondary">Fazer novo teste</button>
-                        <button id="downloadResult" class="btn btn-primary">Baixar resultado</button>
+                        <button id="restart-test" class="btn btn-accent">Refazer o teste</button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-
-    <!-- Rodapé -->
+    
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Testes vocacionais</h3>
-                    <p>Desenvolvidos para ajudar o usuário a achar o melhor curso ou profissão</p>
+                    <p>Desenvolvidos para ajudar o usuário a achar o melhor curso ou profissão.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Sobre</h3>
@@ -344,64 +177,57 @@
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Ajuda</h3>
+                    <h3>Links úteis</h3>
                     <ul>
-                        <li><a href="#" aria-label="Veja perguntas frequentes">Perguntas frequentes</a></li>
-                        <li><a href="#" aria-label="Entre em contato conosco">Contato</a></li>
+                        <li><a href="#" aria-label="Veja perguntas frequentes">Ajuda</a></li>
+                        <li><a href="#" aria-label="Leia nossos termos de uso">Termos de uso</a></li>
+                        <li><a href="#" aria-label="Veja nossa política de privacidade">Política de privacidade</a></li>
+                        <li><a href="#" aria-label="Saiba mais sobre acessibilidade">Acessibilidade</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>Termos de uso | Política de privacidade | Acessibilidade</p>
-                <p>Desenvolvido por alunos empreendedores</p>
+                <p>&copy; 2023 Orientador Vocacional SENAC. Todos os direitos reservados. Desenvolvido por alunos empreendedores.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Loader -->
-    <div id="loader" class="loader">
-        <div class="loader-spinner" aria-label="Carregando..."></div>
-    </div>
-
-    <!-- Botão de alternar tema -->
-    <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema claro/escuro">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-    </button>
-
-    <!-- Botão VLibras -->
-    <button id="vlibrasToggle" class="vlibras-toggle" aria-label="Ativar VLibras">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 18.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Z"></path>
-            <path d="M12 14v.01"></path>
-            <path d="M12 2v2"></path>
-            <path d="M12 22v-2"></path>
-            <path d="m4.93 4.93 1.41 1.41"></path>
-            <path d="m17.66 17.66 1.41 1.41"></path>
-            <path d="M2 12h2"></path>
-            <path d="M20 12h2"></path>
-            <path d="m6.34 17.66-1.41 1.41"></path>
-            <path d="m19.07 4.93-1.41 1.41"></path>
-        </svg>
-    </button>
-
-    <!-- Script VLibras -->
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
-    </div>
-
-    <!-- JavaScript minificado -->
-    <script src="js/script.min.js" defer></script>
     
-    <!-- Script VLibras -->
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
-    </script>
+    <div id="loader" class="loader">
+        <div class="loader-spinner"></div>
+    </div>
+    
+    <button id="theme-toggle" class="theme-toggle" aria-label="Mudar para modo escuro">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <button id="vlibras-toggle" class="vlibras-toggle" aria-label="Ativar VLibras">
+        <i class="fas fa-sign-language"></i>
+    </button>
+    
+    <script src="/static/js/script.min.js" defer></script>
 </body>
 </html>
 
+<script>
+    // Verifica se o navegador suporta o recurso de cache
+    if ('caches' in window) {
+        caches.open('static-v1').then(cache => {
+            cache.addAll([
+                '/static/css/style.min.css',
+                '/static/js/script.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+            ]);
+        });
+    }
+    // Verifica se o navegador suporta o recurso de service worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registrado com sucesso:', registration);
+                })
+                .catch(error => {
+                    console.error('Falha ao registrar o Service Worker:', error);
+                });
+        });
+    }

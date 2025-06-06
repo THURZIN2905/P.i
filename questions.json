@@ -29,7 +29,7 @@
   "perguntas": [
     {
       "id": 1,
-      "texto": "Tenho facilidade em resolver problemas lógicos e quebra-cabeças.",
+      "texto": "Como você costuma reagir quando precisa resolver um problema que exige paciência e atenção?",
       "pesos": {
         "ti": 3,
         "enfermagem": 1,
@@ -40,32 +40,32 @@
     },
     {
       "id": 2,
-      "texto": "Gosto de cuidar e ajudar outras pessoas.",
+      "texto": "Como você se sente ao realizar atividades que exigem concentração por um longo período?",
       "pesos": {
-        "ti": 1,
+        "ti": 3,
         "enfermagem": 3,
         "estetica": 3,
-        "logistica": 1,
+        "logistica": 2,
         "administracao": 2
       }
     },
     {
       "id": 3,
-      "texto": "Tenho interesse em como funcionam computadores e softwares.",
+      "texto": "Quando surge uma situação nova que você não conhece bem, como costuma agir?",
       "pesos": {
         "ti": 3,
-        "enfermagem": 1,
-        "estetica": 1,
-        "logistica": 1,
+        "enfermagem": 2,
+        "estetica": 2,
+        "logistica": 2,
         "administracao": 2
       }
     },
     {
       "id": 4,
-      "texto": "Sou organizado(a) e gosto de planejar com antecedência.",
+      "texto": "Como você lida com atividades que exigem planejamento e organização para serem concluídas?",
       "pesos": {
         "ti": 2,
-        "enfermagem": 2,
+        "enfermagem": 1,
         "estetica": 1,
         "logistica": 3,
         "administracao": 3
@@ -73,86 +73,218 @@
     },
     {
       "id": 5,
-      "texto": "Tenho interesse em saúde e bem-estar.",
+      "texto": "Quando está diante de uma tarefa difícil ou que dá errado várias vezes, o que você faz?",
       "pesos": {
-        "ti": 1,
-        "enfermagem": 3,
-        "estetica": 3,
-        "logistica": 1,
-        "administracao": 1
+        "ti": 3,
+        "enfermagem": 2,
+        "estetica": 2,
+        "logistica": 2,
+        "administracao": 2
       }
     },
     {
       "id": 6,
-      "texto": "Gosto de trabalhar com números e estatísticas.",
+      "texto": "Como você reage ao realizar tarefas que exigem precisão e atenção aos pequenos detalhes?",
       "pesos": {
-        "ti": 3,
-        "enfermagem": 1,
-        "estetica": 1,
+        "enfermagem": 3,
+        "estetica": 3,
+        "ti": 2,
         "logistica": 2,
-        "administracao": 3
+        "administracao": 2
       }
     },
     {
       "id": 7,
-      "texto": "Tenho interesse em beleza, moda ou arte.",
+      "texto": "Como costuma agir quando precisa lidar com pessoas que buscam ajuda ou apoio?",
       "pesos": {
-        "ti": 1,
-        "enfermagem": 1,
+        "enfermagem": 3,
         "estetica": 3,
-        "logistica": 1,
-        "administracao": 1
+        "administracao": 2,
+        "ti": 1,
+        "logistica": 1
       }
     },
     {
       "id": 8,
-      "texto": "Gosto de entender como produtos são transportados e armazenados.",
+      "texto": "Como você se sente ao realizar atividades que exigem paciência e repetição de movimentos ou processos?",
       "pesos": {
+        "estetica": 3,
+        "enfermagem": 2,
+        "logistica": 2,
         "ti": 1,
-        "enfermagem": 1,
-        "estetica": 1,
-        "logistica": 3,
-        "administracao": 2
+        "administracao": 1
       }
     },
     {
       "id": 9,
-      "texto": "Tenho facilidade em aprender novas tecnologias.",
+      "texto": "Como você costuma agir em situações que exigem organização e preparo prévio?",
       "pesos": {
-        "ti": 3,
-        "enfermagem": 2,
-        "estetica": 2,
-        "logistica": 2,
-        "administracao": 2
+        "logistica": 3,
+        "administracao": 3,
+        "ti": 2,
+        "enfermagem": 1,
+        "estetica": 1
       }
     },
     {
       "id": 10,
-      "texto": "Gosto de liderar equipes e projetos.",
+      "texto": "Quando alguém sugere mudanças ou ajustes em algo que você fez, como você reage?",
       "pesos": {
         "ti": 2,
         "enfermagem": 2,
         "estetica": 2,
         "logistica": 2,
-        "administracao": 3
+        "administracao": 2
       }
     },
     {
       "id": 11,
-      "texto": "Tenho interesse em como o corpo humano funciona.",
+      "texto": "Como você age quando precisa organizar várias tarefas com prazos diferentes?",
       "pesos": {
+        "administracao": 3,
+        "logistica": 3,
+        "ti": 2,
+        "enfermagem": 1,
+        "estetica": 1
+      }
+    },
+    {
+      "id": 12,
+      "texto": "Quando está participando de uma atividade em grupo, como costuma se comportar?",
+      "pesos": {
+        "administracao": 3,
+        "ti": 2,
+        "enfermagem": 2,
+        "estetica": 2,
+        "logistica": 2
+      }
+    },
+    {
+      "id": 13,
+      "texto": "Como costuma agir quando precisa tomar uma decisão importante?",
+      "pesos": {
+        "administracao": 3,
+        "logistica": 2,
+        "ti": 2,
+        "enfermagem": 1,
+        "estetica": 1
+      }
+    },
+    {
+      "id": 14,
+      "texto": "Como você reage diante de situações que exigem negociação ou acordo entre diferentes opiniões?",
+      "pesos": {
+        "administracao": 3,
+        "logistica": 2,
         "ti": 1,
+        "enfermagem": 1,
+        "estetica": 1
+      }
+    },
+    {
+      "id": 15,
+      "texto": "Quando recebe uma nova tarefa ou responsabilidade, como costuma agir?",
+      "pesos": {
+        "ti": 2,
+        "enfermagem": 2,
+        "estetica": 2,
+        "logistica": 2,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 16,
+      "texto": "Quando você precisa planejar uma atividade que envolve várias etapas, como costuma agir?",
+      "pesos": {
+        "logistica": 3,
+        "administracao": 3,
+        "ti": 2,
+        "enfermagem": 1,
+        "estetica": 1
+      }
+    },
+    {
+      "id": 17,
+      "texto": "Como você reage quando precisa resolver um problema que atrapalha o andamento de uma tarefa?",
+      "pesos": {
+        "ti": 3,
+        "logistica": 2,
+        "administracao": 2,
+        "enfermagem": 1,
+        "estetica": 1
+      }
+    },
+    {
+      "id": 18,
+      "texto": "Como costuma lidar com imprevistos ou mudanças de última hora em suas atividades?",
+      "pesos": {
+        "ti": 2,
+        "enfermagem": 2,
+        "estetica": 2,
+        "logistica": 2,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 19,
+      "texto": "Quando participa de atividades em grupo, qual é a sua atitude?",
+      "pesos": {
+        "ti": 2,
+        "enfermagem": 2,
+        "estetica": 2,
+        "logistica": 2,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 20,
+      "texto": "Como você se sente ao realizar tarefas que exigem organização de informações e planejamento de recursos?",
+      "pesos": {
+        "administracao": 3,
+        "logistica": 3,
+        "ti": 2,
+        "enfermagem": 1,
+        "estetica": 1
+      }
+    },
+    {
+      "id": 21,
+      "texto": "Como você reage quando alguém próximo precisa de ajuda ou apoio emocional?",
+      "pesos": {
         "enfermagem": 3,
-        "estetica": 3,
+        "estetica": 2,
+        "ti": 1,
         "logistica": 1,
         "administracao": 1
       }
     },
     {
-      "id": 12,
-      "texto": "Gosto de criar e desenvolver soluções inovadoras.",
+      "id": 22,
+      "texto": "Como costuma lidar com situações que exigem agir com rapidez e responsabilidade ao mesmo tempo?",
       "pesos": {
-        "ti": 3,
+        "enfermagem": 3,
+        "logistica": 2,
+        "ti": 2,
+        "administracao": 2,
+        "estetica": 1
+      }
+    },
+    {
+      "id": 23,
+      "texto": "Como você se sente ao realizar tarefas que exigem atenção constante e cuidado com detalhes?",
+      "pesos": {
+        "enfermagem": 3,
+        "estetica": 3,
+        "ti": 2,
+        "logistica": 2,
+        "administracao": 2
+      }
+    },
+    {
+      "id": 24,
+      "texto": "Quando trabalha com outras pessoas, como costuma agir?",
+      "pesos": {
+        "ti": 2,
         "enfermagem": 2,
         "estetica": 2,
         "logistica": 2,
@@ -160,36 +292,14 @@
       }
     },
     {
-      "id": 13,
-      "texto": "Tenho interesse em gestão financeira e negócios.",
+      "id": 25,
+      "texto": "Como você lida com situações que envolvem sofrimento ou dor de outras pessoas?",
       "pesos": {
-        "ti": 2,
-        "enfermagem": 1,
+        "enfermagem": 3,
         "estetica": 2,
-        "logistica": 2,
-        "administracao": 3
-      }
-    },
-    {
-      "id": 14,
-      "texto": "Gosto de trabalhar em ambientes que exigem atenção aos detalhes.",
-      "pesos": {
-        "ti": 3,
-        "enfermagem": 3,
-        "estetica": 3,
-        "logistica": 2,
-        "administracao": 2
-      }
-    },
-    {
-      "id": 15,
-      "texto": "Tenho facilidade em me comunicar e ajudar pessoas.",
-      "pesos": {
-        "ti": 2,
-        "enfermagem": 3,
-        "estetica": 3,
-        "logistica": 2,
-        "administracao": 3
+        "ti": 1,
+        "logistica": 1,
+        "administracao": 1
       }
     }
   ]

@@ -4,16 +4,13 @@ import os
 import aiosqlite
 from typing import Dict, List, Optional, Any
 
-# Garantir que o diretório de dados existe
 os.makedirs("data", exist_ok=True)
 DB_PATH = "data/orientador_vocacional.db"
 
 def init_db():
-    """Inicializa o banco de dados com as tabelas necessárias."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
-    # Tabela para armazenar os resultados dos questionários
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS resultados (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,17 +33,6 @@ async def salvar_resultado(
     pontuacoes: Dict[str, float], 
     grafico_base64: str
 ) -> int:
-    """
-    Salva o resultado do questionário no banco de dados.
-    
-    Args:
-        nome: Nome do participante
-        pontuacoes: Dicionário com as pontuações por área
-        grafico_base64: String do gráfico em formato base64
-        
-    Returns:
-        ID do resultado inserido
-    """
     async with aiosqlite.connect(DB_PATH) as db:
         cursor = await db.cursor()
         await cursor.execute(
@@ -70,12 +56,6 @@ async def salvar_resultado(
         return cursor.lastrowid
 
 async def obter_todos_resultados() -> List[Dict[str, Any]]:
-    """
-    Obtém todos os resultados do banco de dados.
-    
-    Returns:
-        Lista de dicionários com os resultados
-    """
     async with aiosqlite.connect(DB_PATH) as db:
         db.row_factory = aiosqlite.Row
         cursor = await db.execute(
@@ -91,15 +71,6 @@ async def obter_todos_resultados() -> List[Dict[str, Any]]:
         return [dict(row) for row in rows]
 
 async def obter_resultado_por_id(resultado_id: int) -> Optional[Dict[str, Any]]:
-    """
-    Obtém um resultado específico pelo ID.
-    
-    Args:
-        resultado_id: ID do resultado a ser obtido
-        
-    Returns:
-        Dicionário com os dados do resultado ou None se não encontrado
-    """
     async with aiosqlite.connect(DB_PATH) as db:
         db.row_factory = aiosqlite.Row
         cursor = await db.execute(
@@ -115,6 +86,5 @@ async def obter_resultado_por_id(resultado_id: int) -> Optional[Dict[str, Any]]:
         row = await cursor.fetchone()
         return dict(row) if row else None
 
-# Inicializa o banco de dados ao importar o módulo
 init_db()
 

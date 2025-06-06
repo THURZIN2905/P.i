@@ -1,418 +1,324 @@
-/**
- * Orientador Vocacional SENAC - Script principal
- * 
- * Este script gerencia a interação do usuário com o questionário vocacional,
- * incluindo carregamento de perguntas, envio de respostas e exibição de resultados.
- */
-
-// Configurações
-const API_URL = window.location.origin;
-const ADMIN_TOKEN = 'senac-admin-token-2023'; // Apenas para fins de demonstração
-
-// Cache de elementos DOM
-const elements = {
-    // Seções
-    intro: document.getElementById('intro'),
-    questionnaire: document.getElementById('questionnaire'),
-    results: document.getElementById('results'),
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = {
+        intro: document.getElementById('intro-section'),
+        questionnaire: document.getElementById('questionnaire-section'),
+        results: document.getElementById('results-section')
+    };
     
-    // Botões de navegação
-    startTest: document.getElementById('startTest'),
-    startTestIntro: document.getElementById('startTestIntro'),
-    newTest: document.getElementById('newTest'),
-    downloadResult: document.getElementById('downloadResult'),
+    const buttons = {
+        startTest: document.getElementById('start-test'),
+        submitTest: document.getElementById('submit-test'),
+        restartTest: document.getElementById('restart-test'),
+        themeToggle: document.getElementById('theme-toggle'),
+        vlibrasToggle: document.getElementById('vlibras-toggle')
+    };
     
-    // Formulário e contêineres
-    questionForm: document.getElementById('questionForm'),
-    questionsContainer: document.getElementById('questions-container'),
+    const elements = {
+        questionsContainer: document.getElementById('questions-container'),
+        nameInput: document.getElementById('participant-name'),
+        resultsName: document.getElementById('results-name'),
+        resultsDate: document.getElementById('results-date'),
+        resultsChart: document.getElementById('results-chart'),
+        scoresList: document.getElementById('scores-list'),
+        loader: document.getElementById('loader')
+    };
     
-    // Resultados
-    resultName: document.getElementById('resultName'),
-    resultDate: document.getElementById('resultDate'),
-    resultChart: document.getElementById('resultChart'),
-    scoresList: document.getElementById('scoresList'),
+    let currentQuestionIndex = 0;
+    let allQuestions = [];
+    let allAreas = [];
     
-    // Loader e tema
-    loader: document.getElementById('loader'),
-    themeToggle: document.getElementById('themeToggle'),
-    vlibrasToggle: document.getElementById('vlibrasToggle')
-};
-
-// Estado da aplicação
-let state = {
-    questions: [],
-    areas: [],
-    currentResult: null,
-    darkMode: localStorage.getItem('darkMode') === 'true'
-};
-
-/**
- * Inicializa a aplicação
- */
-function init() {
-    // Configurar manipuladores de eventos
-    setupEventListeners();
+    const showSection = (sectionId) => {
+        Object.keys(sections).forEach(key => {
+            sections[key].classList.add('hidden');
+        });
+        sections[sectionId].classList.remove('hidden');
+        window.scrollTo(0, 0);
+    };
     
-    // Verificar e aplicar tema salvo
-    applyTheme();
+    const showLoader = () => {
+        elements.loader.style.display = 'flex';
+    };
     
-    // Carregar perguntas da API
-    loadQuestions();
-}
-
-/**
- * Configura os ouvintes de eventos para interações do usuário
- */
-function setupEventListeners() {
-    // Botões de navegação
-    elements.startTest.addEventListener('click', showQuestionnaire);
-    elements.startTestIntro.addEventListener('click', showQuestionnaire);
-    elements.newTest.addEventListener('click', resetTest);
-    elements.downloadResult.addEventListener('click', downloadResult);
+    const hideLoader = () => {
+        elements.loader.style.display = 'none';
+    };
     
-    // Formulário
-    elements.questionForm.addEventListener('submit', handleFormSubmit);
+    const loadQuestions = async () => {
+        try {
+            showLoader();
+            const response = await fetch('/perguntas');
+            const data = await response.json();
+            
+            allQuestions = data.perguntas;
+            allAreas = data.areas;
+            
+            renderQuestions();
+            hideLoader();
+        } catch (error) {
+            console.error('Erro ao carregar perguntas:', error);
+            alert('Erro ao carregar as perguntas. Por favor, tente novamente.');
+            hideLoader();
+        }
+    };
     
-    // Tema
-    elements.themeToggle.addEventListener('click', toggleTheme);
-    
-    // VLibras
-    elements.vlibrasToggle.addEventListener('click', toggleVLibras);
-    
-    // Navegação por teclado
-    document.addEventListener('keydown', handleKeyboardNavigation);
-}
-
-/**
- * Carrega as perguntas da API
- */
-async function loadQuestions() {
-    try {
-        showLoader();
+    const renderQuestions = () => {
+        elements.questionsContainer.innerHTML = '';
         
-        const response = await fetch(`${API_URL}/perguntas`);
+        allQuestions.forEach((question, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-item';
+            questionDiv.setAttribute('data-question-id', question.id);
+            
+            const questionText = document.createElement('div');
+            questionText.className = 'question-text';
+            questionText.textContent = `${index + 1}. ${question.texto}`;
+            
+            const ratingDiv = document.createElement('div');
+            ratingDiv.className = 'rating';
+            
+            const ratingOptions = [
+                { value: 1, text: 'Discordo totalmente' },
+                { value: 2, text: 'Discordo parcialmente' },
+                { value: 3, text: 'Neutro' },
+                { value: 4, text: 'Concordo parcialmente' },
+                { value: 5, text: 'Concordo totalmente' }
+            ];
+            
+            ratingOptions.forEach(option => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'rating-option';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `question-${question.id}`;
+                input.id = `question-${question.id}-option-${option.value}`;
+                input.className = 'rating-input';
+                input.value = option.value;
+                input.setAttribute('aria-label', `${option.text} para a pergunta ${index + 1}`);
+                
+                const label = document.createElement('label');
+                label.htmlFor = `question-${question.id}-option-${option.value}`;
+                label.className = 'rating-label';
+                label.textContent = option.value;
+                
+                const optionText = document.createElement('div');
+                optionText.className = 'rating-text';
+                optionText.textContent = option.text;
+                
+                optionDiv.appendChild(input);
+                optionDiv.appendChild(label);
+                optionDiv.appendChild(optionText);
+                ratingDiv.appendChild(optionDiv);
+            });
+            
+            questionDiv.appendChild(questionText);
+            questionDiv.appendChild(ratingDiv);
+            elements.questionsContainer.appendChild(questionDiv);
+        });
+    };
+    
+    const collectAnswers = () => {
+        const answers = {};
+        const questionItems = document.querySelectorAll('.question-item');
         
-        if (!response.ok) {
-            throw new Error(`Erro ao carregar perguntas: ${response.status}`);
+        let allAnswered = true;
+        
+        questionItems.forEach(item => {
+            const questionId = parseInt(item.getAttribute('data-question-id'));
+            const selectedOption = item.querySelector('input[type="radio"]:checked');
+            
+            if (selectedOption) {
+                answers[questionId] = parseInt(selectedOption.value);
+            } else {
+                allAnswered = false;
+                item.classList.add('error');
+                setTimeout(() => item.classList.remove('error'), 3000);
+            }
+        });
+        
+        return allAnswered ? answers : null;
+    };
+    
+    const submitAnswers = async () => {
+        const name = elements.nameInput.value.trim();
+        if (!name) {
+            elements.nameInput.classList.add('error');
+            setTimeout(() => elements.nameInput.classList.remove('error'), 3000);
+            alert('Por favor, informe seu nome.');
+            return;
         }
         
-        const data = await response.json();
-        
-        state.questions = data.perguntas;
-        state.areas = data.areas;
-        
-        // Preparar o formulário com as perguntas
-        renderQuestions();
-        
-        hideLoader();
-    } catch (error) {
-        console.error('Erro ao carregar perguntas:', error);
-        hideLoader();
-        showError('Não foi possível carregar as perguntas. Por favor, tente novamente mais tarde.');
-    }
-}
-
-/**
- * Renderiza as perguntas no formulário
- */
-function renderQuestions() {
-    elements.questionsContainer.innerHTML = '';
-    
-    state.questions.forEach(question => {
-        const questionElement = document.createElement('div');
-        questionElement.className = 'question-item';
-        questionElement.setAttribute('role', 'group');
-        questionElement.setAttribute('aria-labelledby', `question-${question.id}`);
-        
-        const questionText = document.createElement('p');
-        questionText.className = 'question-text';
-        questionText.id = `question-${question.id}`;
-        questionText.textContent = question.texto;
-        
-        const ratingContainer = document.createElement('div');
-        ratingContainer.className = 'rating';
-        
-        // Criar opções de 1 a 5
-        const ratingLabels = [
-            'Discordo totalmente',
-            'Discordo parcialmente',
-            'Neutro',
-            'Concordo parcialmente',
-            'Concordo totalmente'
-        ];
-        
-        for (let i = 1; i <= 5; i++) {
-            const optionContainer = document.createElement('div');
-            optionContainer.className = 'rating-option';
-            
-            const input = document.createElement('input');
-            input.type = 'radio';
-            input.name = `question-${question.id}`;
-            input.id = `question-${question.id}-rating-${i}`;
-            input.className = 'rating-input';
-            input.value = i;
-            input.required = true;
-            input.setAttribute('aria-label', `${ratingLabels[i-1]} para a pergunta ${question.id}`);
-            
-            const label = document.createElement('label');
-            label.htmlFor = `question-${question.id}-rating-${i}`;
-            label.className = 'rating-label';
-            label.textContent = i;
-            
-            const ratingText = document.createElement('span');
-            ratingText.className = 'rating-text';
-            ratingText.textContent = ratingLabels[i-1];
-            
-            optionContainer.appendChild(input);
-            optionContainer.appendChild(label);
-            optionContainer.appendChild(ratingText);
-            ratingContainer.appendChild(optionContainer);
+        const answers = collectAnswers();
+        if (!answers) {
+            alert('Por favor, responda todas as perguntas.');
+            return;
         }
         
-        questionElement.appendChild(questionText);
-        questionElement.appendChild(ratingContainer);
-        elements.questionsContainer.appendChild(questionElement);
-    });
-}
-
-/**
- * Manipula o envio do formulário
- * @param {Event} event - Evento de envio do formulário
- */
-async function handleFormSubmit(event) {
-    event.preventDefault();
-    
-    try {
-        showLoader();
-        
-        const formData = new FormData(elements.questionForm);
-        const nome = formData.get('nome');
-        
-        if (!nome || nome.trim() === '') {
-            throw new Error('Por favor, informe seu nome.');
-        }
-        
-        // Coletar respostas
-        const respostas = {};
-        
-        state.questions.forEach(question => {
-            const value = formData.get(`question-${question.id}`);
+        try {
+            showLoader();
             
-            if (!value) {
-                throw new Error(`Por favor, responda a pergunta ${question.id}.`);
+            const response = await fetch('/responder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nome: name,
+                    respostas: answers
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`Erro ${response.status}: ${response.statusText}`);
             }
             
-            respostas[question.id] = parseInt(value);
+            const result = await response.json();
+            displayResults(result);
+            hideLoader();
+            showSection('results');
+        } catch (error) {
+            console.error('Erro ao enviar respostas:', error);
+            alert('Erro ao processar suas respostas. Por favor, tente novamente.');
+            hideLoader();
+        }
+    };
+    
+    const displayResults = (result) => {
+        elements.resultsName.textContent = result.nome;
+        
+        const date = new Date(result.data);
+        elements.resultsDate.textContent = date.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
         });
         
-        // Enviar para a API
-        const response = await fetch(`${API_URL}/responder`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                nome: nome,
-                respostas: respostas
-            })
-        });
+        elements.resultsChart.src = `data:image/png;base64,${result.grafico_base64}`;
+        elements.resultsChart.alt = `Gráfico de resultados para ${result.nome}`;
         
-        if (!response.ok) {
-            throw new Error(`Erro ao enviar respostas: ${response.status}`);
+        elements.scoresList.innerHTML = '';
+        
+        const sortedScores = Object.entries(result.pontuacoes)
+            .sort((a, b) => b[1] - a[1]);
+        
+        sortedScores.forEach(([areaId, score]) => {
+            const area = allAreas.find(a => a.id === areaId);
+            if (!area) return;
+            
+            const li = document.createElement('li');
+            li.className = 'score-item';
+            
+            const areaSpan = document.createElement('span');
+            areaSpan.className = 'score-area';
+            areaSpan.textContent = area.nome;
+            areaSpan.style.setProperty('--area-color', area.cor);
+            
+            const scoreSpan = document.createElement('span');
+            scoreSpan.className = 'score-value';
+            scoreSpan.textContent = `${score.toFixed(1)}%`;
+            scoreSpan.style.color = area.cor;
+            
+            li.appendChild(areaSpan);
+            li.appendChild(scoreSpan);
+            elements.scoresList.appendChild(li);
+        });
+    };
+    
+    const toggleTheme = () => {
+        document.body.classList.toggle('dark-mode');
+        
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+        
+        const themeIcon = buttons.themeToggle.querySelector('i');
+        if (isDarkMode) {
+            themeIcon.className = 'fas fa-sun';
+            buttons.themeToggle.setAttribute('aria-label', 'Mudar para modo claro');
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            buttons.themeToggle.setAttribute('aria-label', 'Mudar para modo escuro');
         }
         
-        const result = await response.json();
-        
-        // Salvar resultado atual
-        state.currentResult = result;
-        
-        // Mostrar resultados
-        showResults(result);
-        
-        hideLoader();
-    } catch (error) {
-        console.error('Erro ao enviar formulário:', error);
-        hideLoader();
-        showError(error.message || 'Ocorreu um erro ao processar suas respostas. Por favor, tente novamente.');
-    }
-}
-
-/**
- * Exibe a seção de questionário
- */
-function showQuestionnaire() {
-    elements.intro.classList.add('hidden');
-    elements.results.classList.add('hidden');
-    elements.questionnaire.classList.remove('hidden');
+        updateChartTheme();
+    };
     
-    // Scroll para o topo do questionário
-    elements.questionnaire.scrollIntoView({ behavior: 'smooth' });
+    const updateChartTheme = () => {
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        
+        if (window.myChart) {
+            window.myChart.options.plugins.legend.labels.color = isDarkMode ? '#e0e0e0' : '#212529';
+            window.myChart.options.plugins.title.color = isDarkMode ? '#e0e0e0' : '#212529';
+            window.myChart.update();
+        }
+    };
     
-    // Foco no campo de nome
-    document.getElementById('nome').focus();
-}
-
-/**
- * Exibe a seção de resultados
- * @param {Object} result - Resultado do questionário
- */
-function showResults(result) {
-    elements.questionnaire.classList.add('hidden');
-    elements.results.classList.remove('hidden');
+    const initTheme = () => {
+        const savedTheme = localStorage.getItem('darkMode');
+        
+        if (savedTheme === 'true') {
+            document.body.classList.add('dark-mode');
+            const themeIcon = buttons.themeToggle.querySelector('i');
+            themeIcon.className = 'fas fa-sun';
+            buttons.themeToggle.setAttribute('aria-label', 'Mudar para modo claro');
+        }
+    };
     
-    // Preencher dados do resultado
-    elements.resultName.textContent = result.nome;
-    elements.resultDate.textContent = new Date(result.data).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+    const initVLibras = () => {
+        const script = document.createElement('script');
+        script.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
+        script.onload = () => {
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        };
+        document.head.appendChild(script);
+    };
+    
+    const toggleVLibras = () => {
+        if (window.VLibras) {
+            const widget = window.VLibras.Widget;
+            
+            if (widget.isActive) {
+                widget.hide();
+            } else {
+                widget.show();
+            }
+        }
+    };
+    
+    buttons.startTest.addEventListener('click', () => {
+        showSection('questionnaire');
     });
     
-    // Exibir gráfico
-    elements.resultChart.src = `data:image/png;base64,${result.grafico_base64}`;
-    elements.resultChart.alt = `Gráfico de resultados de ${result.nome}`;
-    
-    // Preencher pontuações
-    elements.scoresList.innerHTML = '';
-    
-    // Ordenar pontuações do maior para o menor
-    const sortedScores = Object.entries(result.pontuacoes)
-        .sort((a, b) => b[1] - a[1]);
-    
-    sortedScores.forEach(([areaId, score]) => {
-        const area = state.areas.find(a => a.id === areaId);
-        
-        if (!area) return;
-        
-        const scoreItem = document.createElement('li');
-        scoreItem.className = 'score-item';
-        
-        const areaName = document.createElement('span');
-        areaName.className = 'score-area';
-        areaName.textContent = area.nome;
-        
-        const scoreValue = document.createElement('span');
-        scoreValue.className = 'score-value';
-        scoreValue.textContent = `${score.toFixed(1)}%`;
-        scoreValue.style.color = area.cor;
-        
-        scoreItem.appendChild(areaName);
-        scoreItem.appendChild(scoreValue);
-        elements.scoresList.appendChild(scoreItem);
+    buttons.submitTest.addEventListener('click', (e) => {
+        e.preventDefault();
+        submitAnswers();
     });
     
-    // Scroll para o topo dos resultados
-    elements.results.scrollIntoView({ behavior: 'smooth' });
-}
-
-/**
- * Reinicia o teste
- */
-function resetTest() {
-    elements.questionForm.reset();
-    elements.results.classList.add('hidden');
-    elements.questionnaire.classList.remove('hidden');
+    buttons.restartTest.addEventListener('click', () => {
+        elements.nameInput.value = '';
+        const radioInputs = document.querySelectorAll('input[type="radio"]');
+        radioInputs.forEach(input => input.checked = false);
+        showSection('intro');
+    });
     
-    // Scroll para o topo do questionário
-    elements.questionnaire.scrollIntoView({ behavior: 'smooth' });
-}
-
-/**
- * Baixa o resultado como imagem
- */
-function downloadResult() {
-    if (!state.currentResult) return;
+    buttons.themeToggle.addEventListener('click', toggleTheme);
+    buttons.vlibrasToggle.addEventListener('click', toggleVLibras);
     
-    // Criar um link para download da imagem
-    const link = document.createElement('a');
-    link.href = elements.resultChart.src;
-    link.download = `resultado-vocacional-${state.currentResult.nome.replace(/\s+/g, '-').toLowerCase()}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-/**
- * Alterna entre os temas claro e escuro
- */
-function toggleTheme() {
-    state.darkMode = !state.darkMode;
-    localStorage.setItem('darkMode', state.darkMode);
-    applyTheme();
-}
-
-/**
- * Aplica o tema atual (claro ou escuro)
- */
-function applyTheme() {
-    if (state.darkMode) {
-        document.body.classList.add('dark-mode');
-        elements.themeToggle.innerHTML = `
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-        `;
-    } else {
-        document.body.classList.remove('dark-mode');
-        elements.themeToggle.innerHTML = `
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-        `;
-    }
-}
-
-/**
- * Alterna a visibilidade do VLibras
- */
-function toggleVLibras() {
-    const vw = document.querySelector('.enabled');
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (!sections.intro.classList.contains('hidden')) {
+                return;
+            } else if (!sections.questionnaire.classList.contains('hidden')) {
+                showSection('intro');
+            } else if (!sections.results.classList.contains('hidden')) {
+                showSection('questionnaire');
+            }
+        }
+    });
     
-    if (vw) {
-        vw.classList.toggle('active');
-    }
-}
-
-/**
- * Manipula a navegação por teclado
- * @param {KeyboardEvent} event - Evento de teclado
- */
-function handleKeyboardNavigation(event) {
-    // Implementar navegação por teclado se necessário
-}
-
-/**
- * Exibe o loader
- */
-function showLoader() {
-    elements.loader.style.display = 'flex';
-}
-
-/**
- * Oculta o loader
- */
-function hideLoader() {
-    elements.loader.style.display = 'none';
-}
-
-/**
- * Exibe uma mensagem de erro
- * @param {string} message - Mensagem de erro
- */
-function showError(message) {
-    alert(message);
-}
-
-// Inicializar a aplicação quando o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', init);
+    initTheme();
+    initVLibras();
+    loadQuestions();
+});
 

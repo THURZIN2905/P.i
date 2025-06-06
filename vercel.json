@@ -10,18 +10,24 @@
       "use": "@vercel/static"
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/static/(.*)",
-      "destination": "/static/$1"
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     },
     {
-      "source": "/(.*)",
-      "destination": "/main.py"
+      "src": "/(.*)",
+      "dest": "/main.py"
     }
   ],
   "env": {
     "PYTHONPATH": "."
+  },
+  "functions": {
+    "main.py": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
   },
   "headers": [
     {
@@ -56,3 +62,4 @@
     }
   ]
 }
+
